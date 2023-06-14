@@ -1,0 +1,9 @@
+#searcher{
+    width: 500px;
+}
+#modal_url, #title_url{
+    text-decoration: none;
+}
+nav{
+    margin-top: 30px;
+}

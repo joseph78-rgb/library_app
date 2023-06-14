@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Home</title>
+{% endblock %}
+
+{% block search %}
+<form action="/" method="post">
+    <select class="w3-select" name="creteria">
+        <option value="title" disabled selected>Search By:</option>
+        <option value="seriial">Serial Number</option>
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+        <option value="category">Category</option>
+    </select>
+    <div class="w3-row">
+        <input type="search" name="search" class="w3-select w3-col l10 s9" placeholder="Search for a book here">
+        <input type="submit" value="Search" class="w3-col l2 s3 w3-button w3-brown">
+    </div>
+</form>
+{% endblock %}
+
+{% block body %}
+<div class="w3-content">
+    <div class="w3-card-2 w3-margin">
+        <div class="w3-brown w3-container">
+            <h2 class="w3-text-white"><b>Add A Book</b></h2>
+        </div>
+        <form action="/add_book" class="w3-container" method="post">
+            <input type="number" name="serial" placeholder="Enter Serial Number For the book" class="w3-input w3-border w3-margin-top">
+            <input type="text" name="title"  placeholder="Enetr Books Title" class="w3-input w3-border w3-margin-top">
+            <input type="text" name="author"  placeholder="Enetr Books Author" class="w3-input w3-border w3-margin-top">
+            <select class="w3-select w3-border w3-margin-top" name="category">
+                <option value="" disabled selected>Choose Book Category</option>
+                <option value="programming">Programming</option>
+                <option value="networking">Networking</option>
+                <option value="fianance">Finance</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="geography">Geography</option>
+                <option value="electronics">Electronics</option>
+                <option value="physiology">Physiology</option>
+                <option value="anatomy">Anatomy</option>
+                <option value="history">History</option>
+            </select>
+            <input type="submit" name="title"  value="Add Book" class="w3-button w3-brown w3-margin">
+        </form>
+    </div>
+
+    <div>
+        {% for book in books %}
+        <div class="w3-border w3-padding">           
+            <div class="w3-row">
+                <div class="w3-col l10">
+                    {% if book. borrower_id %}
+                        <h3 class="w3-text-orange"><b>{{book.title}}</b></h3>
+                    {% else %}
+                        <a href="modify_book?book_id={{book.serial}}" id="title_url"><h3 class="w3-text-orange w3-hover-text-blue"><b>{{book.title}}</b></h3></a>
+                    {% endif %}
+                    <p><b class="w3-text-brown">Author: </b>{{book.author}}</p>
+                    <p><b class="w3-text-brown">Category: </b>{{book.category}}</p>
+                </div>
+                <div class="w3-col l2">
+                    <p><b class="w3-text-brown">Serial No: </b>{{book.serial}}</p>
+                    {% if book. borrower_id %}
+                    <div class="w3-cell w3-padding w3-red">Unavailable</div>
+                    {% else %}
+                    <a href="borrow?book_id={{book.serial}}"><input type="button" value="Borrow" class="w3-button w3-brown"></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+{% endblock %}

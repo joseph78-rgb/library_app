@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Lending Status</title>
+{% endblock %}
+
+{% block search %}
+<form action="/search_borrower" method="GET">
+    <div class="w3-row">
+        <input type="search" name="id" class="w3-input w3-border w3-threequarter" placeholder="Enter Borrower ID to search">
+        <input type="submit" value="Seach" class="w3-button w3-brown w3-quarter">
+    </div>
+</form>
+{% if error %}
+<p class="w3-text-red">{{error}}</p>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+<dialog id='data-modal'>
+    <a href="/"><button onclick='closeModal()'>Close</button></a>
+</dialog>
+
+<div class="w3-content">
+    {% for book in books %}
+    <div class="w3-border w3-padding">           
+        <div class="w3-row">
+            <div class="w3-col l8">
+                <h3 class="w3-text-orange"><b>{{book.title}}</b></h3>
+                <p><b class="w3-text-brown">Book Id: </b>{{book.serial}}</p>
+                <p><b class="w3-text-brown">Author: </b>{{book.author}}</p>
+                <p><b class="w3-text-brown">Category: </b>{{book.category}}</p>
+            </div>
+            <div class="w3-col l4">
+                <p><b class="w3-text-brown">Lendered to: </b>{{book.borrower}}</p>
+                <p><b class="w3-text-brown">Borrower Id: </b>{{book.borrower_id}}</p>
+                <p><b class="w3-text-brown">Bal: </b>KES {{book.bal}}</p>
+                <a href="/return_book?book_id={{book.serial}}"><input type="button" value="Return and Clear" class="w3-button w3-blue"></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    const modal = document.getElementById('data-modal')
+
+    paragraph = document.createElement('p')
+    if('{{success_return}}')
+    {
+        paragraph.appendChild(document.createTextNode('Balance cleareared and book returned scuccessfully'))
+        modal.insertBefore(paragraph, modal.firstChild)
+        modal.showModal()
+    }
+
+    function bookElementLoad(event, bal)
+    {
+        event.target.style.backgroundColor = 'red'
+    }
+</script>
+{% endblock %}

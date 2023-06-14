@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Modify Book</title>
+{% endblock %}
+
+{% block body %}
+
+<dialog id='data-modal'>
+    <a href="/"><button onclick='closeModal()'>Close</button></a>
+</dialog>
+
+<div class="w3-content">
+    <div class="w3-panel">
+        <h1 class="w3-center w3-text-brown"><b>Modify Book Here</b></h1>
+        <div class="w3-container w3-border">
+            <h3 class="w3-text-orange"><b>{{book.title}}</b></h3>
+            <p><b class="w3-text-brown">Serial Number: </b>{{book.serial}}</p>
+            <p><b class="w3-text-brown">Author: </b>{{book.author}}</p>
+            <p><b class="w3-text-brown">Category: </b>{{book.category}}</p>
+            <a href="{{url_for('delete_book', book_id=book.serial)}}"><input type="button" value="Delete This Book" class="w3-red w3-button w3-margin"></a>
+        </div>
+    </div>
+    <hr/>
+    <p class="w3-text-blue">Enter new values for any field you want to change about the book</p>
+    <div class="w3-card-2 w3-margin">
+        <div class="w3-brown w3-container">
+            <h2 class="w3-text-white"><b>Modify This Book</b></h2>
+        </div>
+        <form action="modify_book" class="w3-container" method="post">
+            <input type="hidden" name="book_id" value="{{book.serial}}">
+            <input type="number" name="serial" placeholder="Enter New Serial Number" class="w3-input w3-border w3-margin-top">
+            <input type="text" name="title"  placeholder="Eneter New Books Title" class="w3-input w3-border w3-margin-top">
+            <input type="text" name="author"  placeholder="Eneter New Books Author" class="w3-input w3-border w3-margin-top">
+            <select class="w3-select w3-border w3-margin-top" name="category">
+                <option value="" disabled selected>Choose New Category</option>
+                <option value="programming">Programming</option>
+                <option value="networking">Networking</option>
+                <option value="fianance">Finance</option>
+                <option value="mathematics">Mathematics</option>
+                <option value="geography">Geography</option>
+                <option value="electronics">Electronics</option>
+                <option value="physiology">Physiology</option>
+                <option value="anatomy">Anatomy</option>
+                <option value="history">History</option>
+            </select>
+            <input type="submit" name="title"  value="Modify" class="w3-button w3-brown w3-margin">
+        </form>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('data-modal')
+    paragraph = document.createElement('p')
+    function showModal(message)
+    {
+        paragraph.appendChild(document.createTextNode(message))
+        modal.insertBefore(paragraph, modal.firstChild)
+        modal.showModal()
+    }
+    if('{{delete_status}}')
+    {
+        showModal('The book was deleted successfully')
+    }
+    if('{{update_status}}')
+    {
+        showModal('The book was updated successfully')
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/w3.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <header class="w3-row-padding">
+        <div class="w3-third">
+            <h1 class="w3-text-brown w3-margin-top"><b>Base Library System</b></h1>
+        </div>
+        <div class="w3-third">
+            <nav class="w3-center w3-large">
+                <a href="\" class="w3-margin w3-text-brown"><b>Home</b></a>
+                <a href="lending_status" class="w3-margin w3-text-brown"><b>Lending Status</b></a>
+            </nav>
+        </div>
+        <div  class="w3-third w3-right w3-padding">
+            {% block search %}
+            {% endblock %}
+        </div>
+    </header>
+    {% block body %}
+    {% endblock %}
+    <script type="text/javascript" src="{{url_for('static', filename='javascript/source.js')}}"></script>
+</body>
+</html>

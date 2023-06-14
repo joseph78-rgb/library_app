@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Lend Book</title>
+{% endblock %}
+
+{% block body %}
+<dialog id='data-modal'>
+    <a href="/"><button onclick='closeModal()'>Close</button></a>
+</dialog>
+
+<div class="w3-content">
+    <div class="w3-panel">
+        <h1 class="w3-center"><b>Book to Lend</b></h1>
+        <div class="w3-container w3-border">
+            <h3 class="w3-text-orange"><b>{{book.title}}</b></h3>
+            <p><b class="w3-text-brown">Serial Number: </b>{{book.serial}}</p>
+            <p><b class="w3-text-brown">Author: </b>{{book.author}}</p>
+            <p><b class="w3-text-brown">Category: </b>{{book.category}}</p>
+        </div>
+    </div>
+
+    <h1 class="w3-center w3-margin-top"><b>Borrower Info</b></h1>
+        <form action="/borrow" class="w3-card-2 w3-container" method="post">
+            <div class="row">
+                {% if not error %}
+                <p class="w3-text-blue w3-threequarter">Enter Borrower Info If new or just ID if already registered</p>
+                {% else %}
+                <p class="w3-text-red w3-threequarter">{{error}}</p>
+                {% endif %}
+                <div class="w3-quarter" id="time"></div>
+            </div>
+            <input type="hidden" name="book_id" value="{{book.serial}}">
+            <input type="text" reuired name="id" class="w3-input w3-border w3-margin-top" placeholder="User ID">
+            <input type="text" name="first_name" class="w3-input w3-border w3-margin-top" placeholder="First Name">
+            <input type="text" name="last_name" class="w3-input w3-border w3-margin-top" placeholder="Last Name">
+            <input type="submit" value="Borrow Book" class="w3-button w3-margin w3-brown">
+        </form>
+    </div>
+<div>
+<script>
+    const time = document.getElementById('time')
+    var d = new Date();
+    time.innerHTML = `<p><b>Date</b>: ${d.toLocaleString()}</p>`;
+
+    const modal = document.getElementById('data-modal')
+    paragraph = document.createElement('p')
+    if('{{success_lending}}')
+    {
+        paragraph.appendChild(document.createTextNode('Changes saved. You have successfully lendered the book'))
+        modal.insertBefore(paragraph, modal.firstChild)
+        modal.showModal()
+    }
+</script>
+{% endblock %}
