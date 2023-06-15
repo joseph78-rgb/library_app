@@ -1,4 +1,8 @@
 # library_system
+![homepage](https://github.com/joseph78-rgb/library_app/assets/66652159/72886364-adb2-4e97-9e4d-ae24b7ad7274)
+![view book borrowers and clear page](https://github.com/joseph78-rgb/library_app/assets/66652159/1f0c1777-67b9-4ed1-9a43-82a6ed4d1225)
+![borrow book page](https://github.com/joseph78-rgb/library_app/assets/66652159/c9e7de19-25b6-4d80-868d-251b814e1f06)
+
 In this app there are basically four webpages. That is, the homepage, the lending page, the lendingstatus page and the modifying page. The homepage homepage is where all books
 are displayed and librarians can search for a specific book here and be able to see if a book is readily available for lending or if the book has already been taken. A new book
 can be added as well here.
